@@ -16,12 +16,11 @@ class Handler {
 
   register = async (req, res) => {
     const passwordHash = await argon2.hash(req.body.password)
-    const user = new this.User({
+    return this.User.create({
       name: req.body.name,
       email: req.body.email,
       password: passwordHash,
     })
-    return user.save()
   }
 }
 

@@ -5,7 +5,7 @@ async function routes(fastify, options) {
   const { users, user, register } = require('./schemas')
 
   fastify.get('/', users, handler.getAll)
-  fastify.get('/:id', user, handler.get)
+  fastify.get('/:id', { schema: user.schema, preHandler: fastify.authenticate }, handler.get)
   fastify.post('/', register, handler.register)
 }
 
