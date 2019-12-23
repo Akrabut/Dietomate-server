@@ -15,6 +15,7 @@ fastify.register(fp(require('./plugins/mongoose')))
 
 // -----------APIs-----------
 fastify.register(require('./example/controller'), { prefix: '/api/example' })
+fastify.register(require('./user/controller'), { prefix: '/api/user' })
 
 fastify.listen(process.env.PORT, '0.0.0.0', (err, address) => {
   if (err) {

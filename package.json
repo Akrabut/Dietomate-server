@@ -16,7 +16,8 @@
     "fastify-cors": "latest",
     "fastify-helmet": "latest",
     "fastify-plugin": "^1.6.0",
-    "mongoose": "latest"
+    "mongoose": "latest",
+    "validator": "^12.1.0"
   },
   "devDependencies": {
     "cross-env": "latest",
