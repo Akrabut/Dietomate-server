@@ -1,7 +1,12 @@
+const _id = { type: 'string', minLength: 15 }
+const name = { type: 'string', minLength: 2, maxLength: 20 }
+const email = { type: 'string', minLength: 5, maxLength: 100 }
+const password = { type: 'string', minLength: 5, maxLength: 16 }
+
 const userProps = {
-  _id: { type: 'string' },
-  name: { type: 'string' },
-  email: { type: 'string' },
+  _id,
+  name,
+  email,
 }
 
 const users = {
@@ -40,20 +45,16 @@ const register = {
       type: 'object',
       required: ['name', 'email', 'password'],
       properties: {
-        name: { type: 'string', minLength: 2, maxLength: 20 },
-        email: { type: 'string', minLength: 2, maxLength: 500 },
-        password: { type: 'string', minLength: 5, maxLength: 16 }
+        name,
+        email,
+        password,
       }
     },
     // response data serialization
     response: {
       '2xx': {
         type: 'object',
-        properties: {
-          _id: { type: 'string' },
-          name: { type: 'string', minLength: 2, maxLength: 20 },
-          email: { type: 'string', minLength: 2, maxLength: 500 },
-        }
+        properties: userProps
       }
     }
   }

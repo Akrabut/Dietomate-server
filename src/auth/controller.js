@@ -2,9 +2,9 @@ const Handler = require('./handlers')
 
 async function routes(fastify, options) {
   const handler = new Handler(fastify)
-  // const { users, user, register } = require('./schemas')
+  const { login } = require('./schemas')
 
-  fastify.post('/login', {}, handler.login)
+  fastify.post('/login', login, handler.login)
 }
 
 module.exports = routes

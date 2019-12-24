@@ -15,6 +15,7 @@ class Handler {
   }
 
   register = async (req, res) => {
+    // salt is generated automatically
     const passwordHash = await argon2.hash(req.body.password)
     return this.User.create({
       name: req.body.name,

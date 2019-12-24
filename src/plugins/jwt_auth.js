@@ -2,9 +2,9 @@ const errorHelper = require('../utilities/errors')
 
 async function jwtAuthenticator(fastify) {
   function getTokenFromHeader(req) {
-    if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
+    if (req.headers.authorization && req.headers.authorization.startsWith('Bearer ')) {
       // get the rest of the string after the 'Bearer ' without splitting
-      return req.headers.authorization.slice(7, req.headers.authorization.length - 1)
+      return req.headers.authorization.slice(7, req.headers.authorization.length)
     }
     throw errorHelper('InvalidRequestError', 'Token not found')
   }
