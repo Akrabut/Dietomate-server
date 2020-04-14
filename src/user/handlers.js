@@ -16,16 +16,6 @@ class Handler {
     return user.toJSON()
   }
 
-  login = async (req, res) => {
-    try {
-      const user = await this.User.find({ name: req.body.username })
-      console.log(`user ${user._id} found`)
-      // TODO: generate and return jwt
-    } catch (err) {
-      // TODO: etc
-    }
-  }
-
   register = async (req, res) => {
     // salt is generated automatically
     const passwordHash = await argon2.hash(req.body.password)
