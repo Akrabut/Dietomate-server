@@ -21,12 +21,17 @@ class Handler {
     const userRecord = await this.User.findOne({ email: req.body.email })
     if (!userRecord) throw errorHelper('ArgumentError', 'User not found')
     if (!(await argon2.verify(userRecord.password, req.body.password))) throw errorHelper('AuthenticationError', 'Incorrect password')
+    const user = {
+      name: userRecord.name,
+      email: userRecord.email,
+      token: generateJWT(this.fastify, userRecord),
+    }
     return {
       user: {
         name: userRecord.name,
         email: userRecord.email,
+        token: generateJWT(this.fastify, userRecord),
       },
-      token: generateJWT(this.fastify, userRecord),
     }
   }
 }

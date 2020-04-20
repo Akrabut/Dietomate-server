@@ -17,9 +17,9 @@ const login = {
             properties: {
               name: { type: 'string', minLength: 2, maxLength: 20 },
               email: { type: 'string', minLength: 5, maxLength: 100 },
+              token: { type: 'string', minLength: 30 }
             }
           },
-          token: { type: 'string', minLength: 30 }
         }
       }
     }
