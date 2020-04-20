@@ -9,7 +9,7 @@ function model(fastify) {
     const schema = fastify.mongoose.Schema({
       name: { type: String, required: true, minlength: 2, maxlength: 20 },
       email: { type: String, required: true, unique: true, index: true, validate: { validator: isEmail, message: 'Invalid email' } },
-      password: { type: String, required: true },
+      password: { type: String, required: true, minlength: 5 },
     }, { timestamps: true })
 
     schema.set('toJSON', {
