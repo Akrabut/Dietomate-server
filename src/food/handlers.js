@@ -15,10 +15,7 @@ class Handler {
       return food
     } catch (err) {
       res.code(404).send(errorHelper('InvalidArgumentError', err.message))
-    }
-    
-    // if (!user) throw errorHelper('InvalidArgumentError', 'User not found')
-    
+    }    
   }
 
   addFood = async (req, res) => {

@@ -30,5 +30,6 @@ server.register(fp(require('./plugins/jwt_auth')))
 // -----------APIs-----------
 server.register(require('./user/controller'), { prefix: '/api/user' })
 server.register(require('./auth/controller'), { prefix: '/api/auth' })
-server.register(require('./food/controller'), { prefix: '/api/food'})
+server.register(require('./food/controller'), { prefix: '/api/food' })
+server.register(require('./plan/controller'), { prefix: '/api/plan' })
 
