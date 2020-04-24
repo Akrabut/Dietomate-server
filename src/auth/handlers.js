@@ -18,21 +18,26 @@ class Handler {
   }
 
   login = async (req, res) => {
-    const userRecord = await this.User.findOne({ email: req.body.email })
-    if (!userRecord) throw errorHelper('ArgumentError', 'User not found')
-    if (!(await argon2.verify(userRecord.password, req.body.password))) throw errorHelper('AuthenticationError', 'Incorrect password')
-    const user = {
-      name: userRecord.name,
-      email: userRecord.email,
-      token: generateJWT(this.fastify, userRecord),
-    }
-    return {
-      user: {
+    try {
+      const userRecord = await this.User.findOne({ email: req.body.email })
+      const verified = await argon2.verify(userRecord.password, req.body.password)
+      if (!verified) throw errorHelper('ArgumentError', 'Invalid credentials')
+      const user = {
         name: userRecord.name,
         email: userRecord.email,
         token: generateJWT(this.fastify, userRecord),
-      },
+      }
+      return {
+        user: {
+          name: userRecord.name,
+          email: userRecord.email,
+          token: generateJWT(this.fastify, userRecord),
+        },
+      }
+    } catch (err) {
+      res.code(401).send(errorHelper('ArgumentError', err.message))
     }
+    
   }
 }
 

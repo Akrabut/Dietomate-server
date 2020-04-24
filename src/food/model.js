@@ -9,7 +9,8 @@ function model(fastify) {
     const schema = fastify.mongoose.Schema({
       name: { type: String, required: true, minlength: 2, maxlength: 50, index: true },
       category: { type: String, required: true, minlength: 2, maxlength: 50, index: true },
-      serving_size: { type: Number },
+      category: { type: Number, required: true },
+      serving_size: { type: Number, default: 100 },
       macronutrients: {
         protein: { type: Number, default: 0 },
         carbohydrate: { type: Number, default: 0 },
