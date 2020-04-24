@@ -7,9 +7,9 @@ function model(fastify) {
   } catch (err) {
     // define, compile and return Food model if it doesnt exist
     const schema = fastify.mongoose.Schema({
-      name: { type: String, required: true, minlength: 2, maxlength: 50, index: true },
+      name: { type: String, required: true, minlength: 2, maxlength: 50, index: true, unique: true },
       category: { type: String, required: true, minlength: 2, maxlength: 50, index: true },
-      category: { type: Number, required: true },
+      calories: { type: Number, required: true },
       serving_size: { type: Number, default: 100 },
       macronutrients: {
         protein: { type: Number, default: 0 },

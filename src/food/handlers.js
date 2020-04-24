@@ -23,7 +23,7 @@ class Handler {
 
   addFood = async (req, res) => {
     try {
-      return this.Food.create(req.food)
+      return this.Food.create(req.body)
     } catch (err) {
       res.code(400).send(errorHelper('InvalidParameterError', err.message))
     }
