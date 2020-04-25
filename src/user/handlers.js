@@ -4,10 +4,20 @@ const argon2 = require('argon2')
 class Handler {
   constructor(fastify) {
     this.User = require('./model')(fastify)
+    this.getFromToken = fastify.getFromToken
   }
 
   getAll = async (req, res) => {
     return this.User.find({})
+  }
+
+  getPlans = async (req, res) => {
+    try {
+      const user = await this.User.findById(req.params.id).populate('plans')
+      return user.plans
+    } catch (err) {
+      res.code(404).send(errorHelper('InvalidArgumentError', err.message))
+    }
   }
 
   get = async (req, res) => {
@@ -15,7 +25,7 @@ class Handler {
       const user = await this.User.findById(req.params.id)
       return user.toJSON()
     } catch (err) {
-      throw errorHelper('InvalidArgumentError', 'User not found')
+      res.code(404).send(errorHelper('InvalidArgumentError', err.message))
     }
   }
 

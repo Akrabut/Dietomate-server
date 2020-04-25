@@ -29,6 +29,7 @@ class Handler {
       }
       return {
         user: {
+          _id: userRecord._id.toString(),
           name: userRecord.name,
           email: userRecord.email,
           token: generateJWT(this.fastify, userRecord),

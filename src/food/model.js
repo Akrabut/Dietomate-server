@@ -11,6 +11,7 @@ function model(fastify) {
       category: { type: String, required: true, minlength: 2, maxlength: 50, index: true },
       calories: { type: Number, required: true },
       serving_size: { type: Number, default: 100 },
+      unit: { type: String, default: 'g' },
       macronutrients: {
         protein: { type: Number, default: 0 },
         carbohydrate: { type: Number, default: 0 },

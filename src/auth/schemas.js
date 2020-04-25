@@ -15,6 +15,7 @@ const login = {
           user: {
             type: 'object',
             properties: {
+              _id: { type: 'string' },
               name: { type: 'string', minLength: 2, maxLength: 20 },
               email: { type: 'string', minLength: 5, maxLength: 100 },
               token: { type: 'string', minLength: 30 }
