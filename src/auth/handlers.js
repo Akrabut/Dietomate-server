@@ -32,8 +32,7 @@ class Handler {
       }
     } catch (err) {
       res.code(401).send(errorHelper('ArgumentError', err.message))
-    }
-    
+    } 
   }
 }
 

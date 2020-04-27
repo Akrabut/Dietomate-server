@@ -18,7 +18,8 @@ class Handler {
     }
   }
 
-  getByCalories = async (req, res) => {
+  // to be used to fetch a preset plan
+  getByCalories = async calories => {
     try {
       const plans = await this.Plan.find({ calories: { $gte: req.params.calories - 100, $lte: req.params.calories + 100} })
       return plans
@@ -30,6 +31,8 @@ class Handler {
   // TODO: plan generation algorithm here
   generatePlan = async (req, res) => {
     try {
+      User = require('../user/model')(fastify)
+      Food = require('../food/model')(fastify)
       // req.body.requirements
       // generate plan algo
     } catch (err) {
