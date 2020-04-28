@@ -119,6 +119,16 @@ function model(fastify) {
         }
       }
     }, { timestamps: true })
+
+    schema.set('toJSON', {
+      transform: (doc, food) => {
+        food._id = food._id.toString()
+        delete food.createdAt
+        delete food.updatedAt
+        delete food.__v
+      }
+    })
+  
     return fastify.mongoose.model('Food', schema)
   }
 }

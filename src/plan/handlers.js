@@ -2,6 +2,7 @@ const errorHelper = require('../utilities/errors')
 
 class Handler {
   constructor(fastify) {
+    this.fastify = fastify
     this.Plan = require('./model')(fastify)
   }
 
@@ -29,12 +30,22 @@ class Handler {
   }
 
   // TODO: plan generation algorithm here
-  generatePlan = async (req, res) => {
+  generateFromRequirements = async (req, res) => {
     try {
-      User = require('../user/model')(fastify)
-      Food = require('../food/model')(fastify)
+      User = require('../user/model')(this.fastify)
+      Food = require('../food/model')(this.fastify)
       // req.body.requirements
       // generate plan algo
+    } catch (err) {
+      res.code(400).send(errorHelper('InvalidParameterError', err.message))
+    }
+  }
+
+  generateFromFoods = async (req, res) => {
+    try {
+      const { getFoodsFromDB } = require('./helper')
+      let foods = await Promise.all(getFoodsFromDB(req, this.fastify))
+      return foods
     } catch (err) {
       res.code(400).send(errorHelper('InvalidParameterError', err.message))
     }
