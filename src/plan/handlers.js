@@ -12,7 +12,7 @@ class Handler {
 
   get = async (req, res) => {
     try {
-      const plan = await this.Plan.findById(req.params.id)
+      const plan = await this.Plan.findById(req.params.id).populate('foods')
       return plan
     } catch (err) {
       res.code(404).send(errorHelper('InvalidArgumentError', err.message))
@@ -22,7 +22,7 @@ class Handler {
   // to be used to fetch a preset plan
   getByCalories = async calories => {
     try {
-      const plans = await this.Plan.find({ calories: { $gte: req.params.calories - 100, $lte: req.params.calories + 100} })
+      const plans = await this.Plan.find({ calories: { $gte: req.params.calories - 100, $lte: req.params.calories + 100 } }).populate('foods')
       return plans
     } catch (err) {
       res.code(404).send(errorHelper('InvalidArgumentError', err.message))
@@ -44,9 +44,11 @@ class Handler {
   generateFromFoods = async (req, res) => {
     try {
       const { getFoodsFromDB } = require('./helper')
-      let foods = await Promise.all(getFoodsFromDB(req, this.fastify))
-      
-      return foods
+      const foods = await getFoodsFromDB(req, this.fastify)
+      return this.Plan.create({
+        calories: foods.reduce((sum, food) => sum + food.calories, 0),
+        foods: foods.map(food => food._id)
+      }, 0)
     } catch (err) {
       res.code(400).send(errorHelper('InvalidParameterError', err.message))
     }
