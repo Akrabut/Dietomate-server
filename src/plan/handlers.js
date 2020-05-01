@@ -33,16 +33,14 @@ class Handler {
     }
   }
 
-
-
   generateFromFoods = async (req, res) => {
     try {
-      const { getFoodsFromDB, calcCalories } = require('./helper')
+      const { getFoodsFromDB } = require('./helper')
       const foods = await getFoodsFromDB(req, this.fastify)
       // quantities is needed to instrument given quantities and dispaly them on client
       // thats kind of a hack but the operations are single threaded so indices are guaranteed to be consistent
       return this.Plan.create({
-        calories: foods.reduce((sum, food, i) => sum + calcCalories(food, req.body.foods[i].amount), 0),
+        calories: foods.reduce((sum, food, i) => sum + food.calories, 0),
         foods: foods.map(food => food._id),
         quantities: foods.map((food, i) => req.body.foods[i].amount || food.serving_size)
       }, 0)
