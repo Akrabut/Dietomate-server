@@ -7,6 +7,10 @@ const foodGenerator = (food, amount) => {
   return food
 }
 
+const calcCalories = (food, amount) => {
+  return amount ? food['calories'] * amount / 100 : food['calories'] * food['serving_size'] / 100
+}
+
 const getFoodsFromDB = async (req, fastify) => {
   Food = require('../food/model')(fastify)
   const foods = await Promise.all(
@@ -28,4 +32,5 @@ const getByCalories = async (req, Plan) => {
 module.exports = {
   getFoodsFromDB: getFoodsFromDB,
   getByCalories: getByCalories,
+  calcCalories: calcCalories,
 }

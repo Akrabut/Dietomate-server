@@ -27,18 +27,24 @@ class Handler {
       if (existingPlans.length > 0) return existingPlans
       // req.body.requirements
       // generate plan algo
+      return "Not found"
     } catch (err) {
       res.code(400).send(errorHelper('InvalidParameterError', err.message))
     }
   }
 
+
+
   generateFromFoods = async (req, res) => {
     try {
-      const { getFoodsFromDB } = require('./helper')
+      const { getFoodsFromDB, calcCalories } = require('./helper')
       const foods = await getFoodsFromDB(req, this.fastify)
+      // quantities is needed to instrument given quantities and dispaly them on client
+      // thats kind of a hack but the operations are single threaded so indices are guaranteed to be consistent
       return this.Plan.create({
-        calories: foods.reduce((sum, food) => sum + food.calories, 0),
-        foods: foods.map(food => food._id)
+        calories: foods.reduce((sum, food, i) => sum + calcCalories(food, req.body.foods[i].amount), 0),
+        foods: foods.map(food => food._id),
+        quantities: foods.map((food, i) => req.body.foods[i].amount || food.serving_size)
       }, 0)
     } catch (err) {
       res.code(400).send(errorHelper('InvalidParameterError', err.message))

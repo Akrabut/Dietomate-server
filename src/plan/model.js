@@ -7,6 +7,7 @@ function model(fastify) {
     const schema = fastify.mongoose.Schema({
       calories: { type: Number, required: true, index: true },
       foods: [{ type: fastify.mongoose.Schema.Types.ObjectId, ref: 'Food', unique: true }],
+      quantities: [{ type: Number, default: 100 }]
     }, { timestamps: true })
     schema.index({ calories: 1, foods: 1 }, { unique: true })
     return fastify.mongoose.model('Plan', schema)
