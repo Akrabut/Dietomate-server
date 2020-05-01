@@ -45,6 +45,7 @@ class Handler {
     try {
       const { getFoodsFromDB } = require('./helper')
       let foods = await Promise.all(getFoodsFromDB(req, this.fastify))
+      
       return foods
     } catch (err) {
       res.code(400).send(errorHelper('InvalidParameterError', err.message))
