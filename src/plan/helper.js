@@ -18,6 +18,14 @@ const getFoodsFromDB = async (req, fastify) => {
   return foods.map((food, i) => foodGenerator(food, req.body.foods[i].amount || 100))
 }
 
+// used to fetch plans fulfilling the requirements that already exist in the database
+// if none is found, a new plan will be generated
+const getByCalories = async (req, Plan) => {
+    const plans = await Plan.find({ calories: { $gte: req.body.requirements.calories - 100, $lte: req.body.requirements.calories + 100 } }).populate('foods')
+    return plans
+}
+
 module.exports = {
   getFoodsFromDB: getFoodsFromDB,
+  getByCalories: getByCalories,
 }

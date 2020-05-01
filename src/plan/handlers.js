@@ -19,21 +19,12 @@ class Handler {
     }
   }
 
-  // to be used to fetch a preset plan
-  getByCalories = async calories => {
-    try {
-      const plans = await this.Plan.find({ calories: { $gte: req.params.calories - 100, $lte: req.params.calories + 100 } }).populate('foods')
-      return plans
-    } catch (err) {
-      res.code(404).send(errorHelper('InvalidArgumentError', err.message))
-    }
-  }
-
   // TODO: plan generation algorithm here
   generateFromRequirements = async (req, res) => {
     try {
-      User = require('../user/model')(this.fastify)
-      Food = require('../food/model')(this.fastify)
+      const { getByCalories } = require('./helper')
+      const existingPlans = await getByCalories(req, this.Plan)
+      if (existingPlans.length > 0) return existingPlans
       // req.body.requirements
       // generate plan algo
     } catch (err) {
