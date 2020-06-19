@@ -34,10 +34,11 @@ class Handler {
   }
 
   generateFromFoods = async (req, res) => {
+    console.log('\n\n\nhi\n\n\n');
     try {
       const { getFoodsFromDB } = require('./helper')
       const foods = await getFoodsFromDB(req, this.fastify)
-      // quantities is needed to instrument given quantities and dispaly them on client
+      // quantities is needed to instrument given quantities and display them on client
       // thats kind of a hack but the operations are single threaded so indices are guaranteed to be consistent
       return this.Plan.create({
         calories: foods.reduce((sum, food, i) => sum + food.calories, 0),

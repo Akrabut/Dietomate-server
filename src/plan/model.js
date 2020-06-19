@@ -6,10 +6,10 @@ function model(fastify) {
     // define, compile and return Food model if it doesnt exist
     const schema = fastify.mongoose.Schema({
       calories: { type: Number, required: true, index: true },
-      foods: [{ type: fastify.mongoose.Schema.Types.ObjectId, ref: 'Food', unique: true }],
+      foods: [{ type: fastify.mongoose.Schema.Types.ObjectId, ref: 'Food' }],
       quantities: [{ type: Number, default: 100 }]
     }, { timestamps: true })
-    schema.index({ calories: 1, foods: 1 }, { unique: true })
+    schema.index({ calories: 1, foods: 1 })
     return fastify.mongoose.model('Plan', schema)
   }
 }
