@@ -14,7 +14,11 @@ class Handler {
 
   getPlans = async (req, res) => {
     try {
-      const user = await this.User.findById(req.params.id).populate('plans')
+      const user = await this.User.findById(req.params.id).populate({
+        path: 'plans',
+        populate: { path: 'foods' }
+      })
+      console.log(user.plans);
       return user.plans
     } catch (err) {
       res.code(404).send(errorHelper('InvalidArgumentError', err.message))
