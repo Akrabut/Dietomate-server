@@ -1,5 +1,6 @@
 const errorHelper = require('../utilities/errors')
 const argon2 = require('argon2')
+const mongoose = require('mongoose')
 
 class Handler {
   constructor(fastify) {
@@ -15,6 +16,17 @@ class Handler {
     try {
       const user = await this.User.findById(req.params.id).populate('plans')
       return user.plans
+    } catch (err) {
+      res.code(404).send(errorHelper('InvalidArgumentError', err.message))
+    }
+  }
+
+  savePlan = async (req, res) => {
+    try {
+      const user = await this.User.findById(req.params.id)
+      user.plans.push(mongoose.Types.ObjectId(req.body.planId))
+      await user.save()
+      res.code(201).send('Plan saved successfully')
     } catch (err) {
       res.code(404).send(errorHelper('InvalidArgumentError', err.message))
     }

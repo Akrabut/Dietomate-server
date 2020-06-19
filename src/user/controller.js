@@ -6,6 +6,7 @@ async function routes(fastify, options) {
 
   fastify.get('/', users, handler.getAll)
   fastify.get('/:id/plans', {}, handler.getPlans)
+  fastify.post('/:id/save-plan', {}, handler.savePlan)
   // just as an example, specific user get will only work if you provide a token (ex. its users only content)
   fastify.get('/:id', { schema: user.schema, preHandler: fastify.authenticate }, handler.get)
   fastify.post('/register', register, handler.register)

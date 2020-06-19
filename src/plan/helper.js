@@ -21,7 +21,7 @@ const getFoodsFromDB = async (req, fastify) => {
 // used to fetch plans fulfilling the requirements that already exist in the database
 // if none is found, a new plan will be generated
 const getByCalories = async (req, Plan) => {
-    const plans = await Plan.find({ calories: { $gte: req.body.requirements.calories - 100, $lte: req.body.requirements.calories + 100 } }).populate('foods')
+    const plans = await Plan.find({ calories: { $gte: req.body.requirements.calories - 250, $lte: req.body.requirements.calories + 250 } }).populate('foods')
     return plans
 }
 

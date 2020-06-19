@@ -34,7 +34,6 @@ class Handler {
   }
 
   generateFromFoods = async (req, res) => {
-    console.log('\n\n\nhi\n\n\n');
     try {
       const { getFoodsFromDB } = require('./helper')
       const foods = await getFoodsFromDB(req, this.fastify)
