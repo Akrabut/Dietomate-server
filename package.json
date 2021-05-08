@@ -19,7 +19,7 @@
     "fastify-plugin": "^1.6.0",
     "mongoose": "latest",
     "mysql": "^2.18.1",
-    "typeorm": "^0.2.24",
+    "typeorm": "^0.2.25",
     "validator": "^12.1.0"
   },
   "devDependencies": {
