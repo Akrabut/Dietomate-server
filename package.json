@@ -20,7 +20,7 @@
     "mongoose": "latest",
     "mysql": "^2.18.1",
     "typeorm": "^0.2.24",
-    "validator": "^12.1.0"
+    "validator": "^13.7.0"
   },
   "devDependencies": {
     "cross-env": "latest",
