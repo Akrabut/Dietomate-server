@@ -15,7 +15,7 @@
     "fastify": "latest",
     "fastify-cors": "latest",
     "fastify-helmet": "latest",
-    "fastify-jwt": "^1.2.1",
+    "fastify-jwt": "^4.2.0",
     "fastify-plugin": "^1.6.0",
     "mongoose": "latest",
     "mysql": "^2.18.1",
